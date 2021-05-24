@@ -14,10 +14,11 @@ const calculateExercises = (dailyHours: number[], target: number): exerciseInfo 
 	const total = dailyHours.reduce((a, b) => a + b, 0);
 	const average = total / periodLength;
 	let rating, ratingDescription;
+	console.log(average / target);
 	if (average > target) {
 		rating = 3;
 		ratingDescription = 'Good one';
-	} else if (average / target > 7.5) {
+	} else if (average / target > 0.75) {
 		rating = 2;
 		ratingDescription = 'not too bad but could be better';
 	} else {
@@ -29,9 +30,11 @@ const calculateExercises = (dailyHours: number[], target: number): exerciseInfo 
 		periodLength,
 		trainingDays,
 		success: average < target ? false : true,
-		rating: rating,
-		ratingDescription: ratingDescription,
-		target: target,
-		average: average,
+		rating,
+		ratingDescription,
+		target,
+		average,
 	};
 };
+
+console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2));

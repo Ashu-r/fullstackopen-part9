@@ -8,9 +8,9 @@
             "type": "node",
             "request": "launch",
             "name": "Launch via NPM",
-            "runtimeExecutable": "ts-node",
+            "runtimeExecutable": "pnpm",
             "runtimeArgs": [
-                "exerciseCalculator.ts",
+                "dev",
                 
             ],
             "skipFiles": [

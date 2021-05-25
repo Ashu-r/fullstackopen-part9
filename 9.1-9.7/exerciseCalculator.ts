@@ -37,4 +37,8 @@ const calculateExercises = (dailyHours: number[], target: number): exerciseInfo 
 	};
 };
 
-console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2));
+const target = parseFloat(process.argv[2]);
+const exercises = process.argv.slice(3).map((e) => parseFloat(e));
+if (!target || exercises.length == 0) throw new Error('one or more parameters missing');
+if (isNaN(Number(target)) || exercises.some((e) => isNaN(e))) throw new Error('Parameters must be number');
+console.log(calculateExercises(exercises, target));

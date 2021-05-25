@@ -7,4 +7,8 @@ const calculateBMI = (height: number, weight: number) => {
 	return 'Obese';
 };
 
-console.log(calculateBMI(180, 74));
+const [, , height, weight] = process.argv;
+if (!height || !weight) throw new Error('one or more parameters missing');
+if (isNaN(Number(height)) || isNaN(Number(weight))) throw new Error('Parameters must be number');
+
+console.log(calculateBMI(Number(height), Number(weight)));

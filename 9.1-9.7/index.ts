@@ -12,7 +12,7 @@ app.get('/bmi', (req, res) => {
 	const { weight } = req.query;
 
 	try {
-		res.json({ weight, height, bmi: checkAndCalculateBMI(height, weight) });
+		res.json({ weight, height, bmi: checkAndCalculateBMI(String(height), String(weight)) });
 	} catch (error) {
 		res.json(error);
 	}

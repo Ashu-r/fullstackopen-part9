@@ -37,8 +37,14 @@ const calculateExercises = (dailyHours: number[], target: number): exerciseInfo 
 	};
 };
 
-const target = parseFloat(process.argv[2]);
-const exercises = process.argv.slice(3).map((e) => parseFloat(e));
-if (!target || exercises.length == 0) throw new Error('one or more parameters missing');
-if (isNaN(Number(target)) || exercises.some((e) => isNaN(e))) throw new Error('Parameters must be number');
-console.log(calculateExercises(exercises, target));
+export const checkAndCalculateExercises = (dailyHours: number[], target: number): exerciseInfo => {
+	if (!target || dailyHours.length == 0) throw 'one or more parameters missing';
+	if (isNaN(Number(target)) || dailyHours.some((e) => isNaN(e))) throw 'Parameters must be number';
+	return calculateExercises(dailyHours, target);
+};
+
+if (process.argv.length > 2) {
+	const target = parseFloat(process.argv[2]);
+	const exercises = process.argv.slice(3).map((e) => parseFloat(e));
+	console.log(checkAndCalculateExercises(exercises, target));
+}

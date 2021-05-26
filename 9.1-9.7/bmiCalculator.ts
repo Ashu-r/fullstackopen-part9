@@ -7,7 +7,8 @@ const calculateBMI = (height: number, weight: number) => {
 	return 'Obese';
 };
 
-export const checkAndCalculateBMI = (height: string, weight: string): string => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const checkAndCalculateBMI = (height: any, weight: any): string => {
 	if (!height || !weight) throw 'one or more parameters missing';
 	if (isNaN(Number(height)) || isNaN(Number(weight))) throw 'Parameters must be number';
 	return calculateBMI(Number(height), Number(weight));

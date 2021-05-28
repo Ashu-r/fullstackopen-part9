@@ -1,0 +1,14 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1
+  },
+  "1 error pnpm": {
+    "code": "ERR_PNPM_NO_IMPORTER_MANIFEST_FOUND",
+    "err": {
+      "name": "Error",
+      "message": "No package.json (or package.yaml, or package.json5) was found in \"/home/ashu/projects/fullstackopen-part9\".",
+      "code": "ERR_PNPM_NO_IMPORTER_MANIFEST_FOUND",
+      "stack": "Error: No package.json (or package.yaml, or package.json5) was found in \"/home/ashu/projects/fullstackopen-part9\".\n    at readProjectManifest (/home/ashu/.nvm/versions/node/v16.1.0/pnpm-global/5/node_modules/.pnpm/pnpm@6.4.0/node_modules/pnpm/dist/pnpm.cjs:45209:13)\n    at async Object.readProjectManifestOnly (/home/ashu/.nvm/versions/node/v16.1.0/pnpm-global/5/node_modules/.pnpm/pnpm@6.4.0/node_modules/pnpm/dist/pnpm.cjs:45213:26)\n    at async Object.readProjectManifestOnly (/home/ashu/.nvm/versions/node/v16.1.0/pnpm-global/5/node_modules/.pnpm/pnpm@6.4.0/node_modules/pnpm/dist/pnpm.cjs:45432:24)\n    at async Object.handler (/home/ashu/.nvm/versions/node/v16.1.0/pnpm-global/5/node_modules/.pnpm/pnpm@6.4.0/node_modules/pnpm/dist/pnpm.cjs:120709:24)\n    at async Timeout._onTimeout (/home/ashu/.nvm/versions/node/v16.1.0/pnpm-global/5/node_modules/.pnpm/pnpm@6.4.0/node_modules/pnpm/dist/pnpm.cjs:124690:24)"
+    }
+  }
+}

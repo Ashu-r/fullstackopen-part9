@@ -2,33 +2,9 @@ import React from 'react';
 import Content from './components/Content';
 import Header from './components/Header';
 import Total from './components/Total';
+import { CoursePart } from './types';
 const App = () => {
 	const courseName = 'Half Stack application development';
-	// new types
-	interface CoursePartBase {
-		name: string;
-		exerciseCount: number;
-		type: string;
-	}
-
-	interface CourseWithDescription extends CoursePartBase {
-		description: string;
-	}
-
-	interface CourseNormalPart extends CourseWithDescription {
-		type: 'normal';
-	}
-	interface CourseProjectPart extends CoursePartBase {
-		type: 'groupProject';
-		groupProjectCount: number;
-	}
-
-	interface CourseSubmissionPart extends CourseWithDescription {
-		type: 'submission';
-		exerciseSubmissionLink: string;
-	}
-
-	type CoursePart = CourseNormalPart | CourseProjectPart | CourseSubmissionPart;
 
 	// this is the new coursePart variable
 	const courseParts: CoursePart[] = [
@@ -56,6 +32,13 @@ const App = () => {
 			description: 'Confusing description',
 			exerciseSubmissionLink: 'https://fake-exercise-submit.made-up-url.dev',
 			type: 'submission',
+		},
+		{
+			name: 'Backend development',
+			exerciseCount: 21,
+			description: 'Typing the backend',
+			requirements: ['nodejs', 'jest'],
+			type: 'special',
 		},
 	];
 	const totalExercises = courseParts.reduce((carry, part) => carry + part.exerciseCount, 0);

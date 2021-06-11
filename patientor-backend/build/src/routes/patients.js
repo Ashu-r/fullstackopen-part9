@@ -7,6 +7,9 @@ const express_1 = __importDefault(require("express"));
 const patientService_1 = __importDefault(require("../services/patientService"));
 const utils_1 = __importDefault(require("../utils"));
 const router = express_1.default.Router();
+router.get('/:id', (req, res) => {
+    res.send(patientService_1.default.getNonSensitivePatient(req.params.id));
+});
 router.get('/', (_req, res) => {
     res.send(patientService_1.default.getNonSensitivePatientData());
 });

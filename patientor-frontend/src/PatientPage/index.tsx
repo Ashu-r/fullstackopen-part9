@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Icon, Message } from 'semantic-ui-react';
 import { SemanticICONS } from 'semantic-ui-react/dist/commonjs/generic';
+import EntryView from '../PatientListPage/components/EntryView';
 import { useStateValue } from '../state';
 import { Patient } from '../types';
 
@@ -33,6 +34,13 @@ const PatientPage = () => {
 				<br />
 				Date of Birth: {currentPatient.dateOfBirth}
 			</div>
+			<h3>Entries</h3>
+			{currentPatient.entries.map((entry) => (
+				<>
+					<EntryView entry={entry} key={entry.id} />
+					<br />
+				</>
+			))}
 		</div>
 	);
 };

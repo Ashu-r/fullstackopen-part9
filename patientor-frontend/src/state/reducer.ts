@@ -5,10 +5,12 @@ export type Action =
 	| {
 			type: 'SET_PATIENT_LIST';
 			payload: Patient[];
+			// eslint-disable-next-line no-mixed-spaces-and-tabs
 	  }
 	| {
 			type: 'ADD_PATIENT';
 			payload: Patient;
+			// eslint-disable-next-line no-mixed-spaces-and-tabs
 	  };
 
 export const reducer = (state: State, action: Action): State => {

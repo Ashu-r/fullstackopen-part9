@@ -1,8 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Icon, Message } from 'semantic-ui-react';
+import { Card, Icon, Message } from 'semantic-ui-react';
 import { SemanticICONS } from 'semantic-ui-react/dist/commonjs/generic';
-import EntryView from '../PatientListPage/components/EntryView';
+import EntryView from '../components/EntryView';
 import { useStateValue } from '../state';
 import { Patient } from '../types';
 
@@ -35,12 +35,21 @@ const PatientPage = () => {
 				Date of Birth: {currentPatient.dateOfBirth}
 			</div>
 			<h3>Entries</h3>
-			{currentPatient.entries.map((entry) => (
-				<>
-					<EntryView entry={entry} key={entry.id} />
-					<br />
-				</>
-			))}
+			<Card.Group>
+				{currentPatient.entries ? (
+					currentPatient.entries.map((entry) => (
+						<Card fluid key={entry.id}>
+							<EntryView entry={entry} />
+							<br />
+						</Card>
+						// eslint-disable-next-line no-mixed-spaces-and-tabs
+					))
+				) : (
+					<div>
+						<em>No entries</em>
+					</div>
+				)}
+			</Card.Group>
 		</div>
 	);
 };

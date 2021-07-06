@@ -1,5 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.toNewPatient = exports.toNewEntry = void 0;
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const types_1 = require("../types");
 const isString = (text) => {
     return typeof text === 'string' || text instanceof String;
@@ -29,14 +32,71 @@ const parseGender = (gender) => {
     }
     return gender;
 };
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const parseEntries = (entries) => {
-    if (!entries) {
-        throw new Error('Missing entries');
-    }
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return entries;
+const parseDiagnosis = (diagnosisCodes) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    return diagnosisCodes.every((diagnosisCode) => isString(diagnosisCode));
 };
+const isNewBaseEntry = (entry) => {
+    if (entry.diagnosisCodes) {
+        if (!parseDiagnosis(entry.diagnosisCodes)) {
+            throw new Error(`Wrong Diagnosis Code ${entry.diagnosis}`);
+        }
+    }
+    if (!entry || !isString(entry.description) || !isDate(entry.date) || !isString(entry.specialist)) {
+        throw new Error('Incorrect description, date or specialist');
+    }
+    return entry;
+};
+const isOccupationalHealthcareEntry = (entry) => {
+    if (entry.employerName) {
+        if (entry.sickLeave) {
+            if (Object.keys(entry.sickLeave).includes('startDate') && Object.keys(entry.sickLeave).includes('endDate')) {
+                if (!isDate(entry.sickLeave.startDate) || !isDate(entry.sickLeave.endDate)) {
+                    throw new Error('Incorrect Date for Sick Leave');
+                }
+                else
+                    return true;
+            }
+        }
+        return true;
+    }
+    return false;
+};
+const isHospitalEntry = (entry) => {
+    if (entry.discharge && Object.keys(entry.discharge).includes('date') && Object.keys(entry.discharge).includes('criteria')) {
+        if (!isString(entry.discharge.criteria) || !isDate(entry.discharge.date)) {
+            throw new Error('Incorrect discharge information');
+        }
+        else {
+            return true;
+        }
+    }
+    return false;
+};
+const isHealthCheckEntry = (entry) => {
+    if (entry.healthCheckRating === undefined && !isString(entry.healthCheckRating)) {
+        return false;
+    }
+    return entry;
+};
+const toNewEntry = (props) => {
+    if (!isNewBaseEntry(props)) {
+        throw new Error(`Not base entry ${props}`);
+    }
+    if (isHospitalEntry(props)) {
+        return Object.assign(Object.assign({}, props), { type: 'Hospital' });
+    }
+    else if (isOccupationalHealthcareEntry(props)) {
+        return Object.assign(Object.assign({}, props), { type: 'OccupationalHealthcare' });
+    }
+    else if (isHealthCheckEntry(props)) {
+        return Object.assign(Object.assign({}, props), { type: 'HealthCheck' });
+    }
+    else {
+        throw new Error('Entry not in proper format');
+    }
+};
+exports.toNewEntry = toNewEntry;
 const toNewPatient = ({ ssn, name, dateOfBirth, gender, occupation, entries }) => {
     const newPatient = {
         ssn: parseString(ssn, 'ssn'),
@@ -44,8 +104,9 @@ const toNewPatient = ({ ssn, name, dateOfBirth, gender, occupation, entries }) =
         dateOfBirth: parseDate(dateOfBirth),
         gender: parseGender(gender),
         occupation: parseString(occupation, 'occupation'),
-        entries: parseEntries(entries),
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        entries,
     };
     return newPatient;
 };
-exports.default = toNewPatient;
+exports.toNewPatient = toNewPatient;

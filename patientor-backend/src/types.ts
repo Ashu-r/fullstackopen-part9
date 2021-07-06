@@ -10,7 +10,6 @@ export type Diagnosis = {
 	latin?: string;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export type Entry = HospitalEntry | OccupationalHealthcareEntry | HealthCheckEntry;
 
 export type Patient = {
@@ -65,3 +64,10 @@ interface OccupationalHealthcareEntry extends BaseEntry {
 		endDate: string;
 	};
 }
+
+export type newBaseEntry = Omit<BaseEntry, 'id'>;
+export type newHealthCheckEntry = Omit<HealthCheckEntry, 'id'>;
+export type newHospitalEntry = Omit<HospitalEntry, 'id'>;
+export type newOccupationalHealthcareEntry = Omit<OccupationalHealthcareEntry, 'id'>;
+
+export type NewEntry = newHealthCheckEntry | newHospitalEntry | newOccupationalHealthcareEntry;

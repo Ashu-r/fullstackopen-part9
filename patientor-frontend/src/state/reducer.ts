@@ -1,6 +1,6 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { State } from './state';
-import { Patient, Diagnosis } from '../types';
+import { Patient, Diagnosis, Entry } from '../types';
 
 export type Action =
 	| {
@@ -14,6 +14,11 @@ export type Action =
 	| {
 			type: 'SET_DIAGNOSES_LIST';
 			payload: Diagnosis[];
+	  }
+	| {
+			type: 'ADD_ENTRY';
+			patientId: string;
+			payload: Entry;
 	  };
 
 export const reducer = (state: State, action: Action): State => {
@@ -42,6 +47,14 @@ export const reducer = (state: State, action: Action): State => {
 					...state.diagnoses,
 				},
 			};
+		case 'ADD_ENTRY':
+			return {
+				...state,
+				patients: {
+					...state.patients,
+					[action.patientId]: { ...state.patients[action.patientId], entries: state.patients[action.patientId].entries.concat(action.payload) },
+				},
+			};
 
 		default:
 			return state;
@@ -58,4 +71,8 @@ export const addNewPatient = (patient: Patient): Action => {
 
 export const setDiagnosesList = (diagnosesList: Diagnosis[]): Action => {
 	return { type: 'SET_DIAGNOSES_LIST', payload: diagnosesList };
+};
+
+export const addNewEntry = (patientId: string, entry: Entry): Action => {
+	return { type: 'ADD_ENTRY', patientId: patientId, payload: entry };
 };
